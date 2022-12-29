@@ -1,0 +1,2 @@
+GET http://localhost:8080/cmcd-njs/testProcessQuery?CMCD=bl%3D21300
+

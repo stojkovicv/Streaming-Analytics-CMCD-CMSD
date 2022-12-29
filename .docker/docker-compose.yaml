@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+    cmcd-server:
+        container_name: cmcd-server
+        image: nginx:latest
+        ports:
+            - "8080:8080"
+        volumes:
+            - ../cmcd-server/nginx/config/nginx.conf:/etc/nginx/nginx.conf:ro
+            - ../cmcd-server/nginx/cmcd_njs.js:/etc/nginx/cmcd_njs.js:ro
+            - ../cmcd-server/nginx/media/:/etc/nginx/media/:ro
