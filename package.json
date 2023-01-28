@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mongodb": "^4.13.0",
+    "mongoose": "^6.9.0"
+  }
+}
