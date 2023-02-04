@@ -1,0 +1,61 @@
+## Temporary file to debug the https://github.com/JamesOsgood/mongodb-grafana plugin
+
+POST localhost:3333
+Content-Type: application/json
+
+{
+	"db": {
+		"url": "mongodb://mongo:27017/",
+		"db": "test"
+	}
+}
+
+###
+POST localhost:3333/query
+Content-Type: application/json
+
+{
+			"app": "explore",
+			"dashboardId": 0,
+			"timezone": "browser",
+			"startTime": 1675536036764,
+			"interval": "2s",
+			"intervalMs": 2000,
+			"panelId": "Q-da08c737-656b-4999-8f5d-5d7d408aaf02-0",
+			"targets": [
+				{
+					"target": "test.weather.aggreagte({})",
+					"refId": "A",
+					"type": "table"
+				}
+			],
+			"range": {
+				"from": "2023-02-04T17:40:36.760Z",
+				"to": "2023-02-04T18:40:36.760Z",
+				"raw": {
+					"from": "now-1h",
+					"to": "now"
+				}
+			},
+			"requestId": "explore_left",
+			"rangeRaw": {
+				"from": "now-1h",
+				"to": "now"
+			},
+			"scopedVars": {
+				"__interval": {
+					"text": "2s",
+					"value": "2s"
+				},
+				"__interval_ms": {
+					"text": 2000,
+					"value": 2000
+				}
+			},
+			"maxDataPoints": 2343,
+			"liveStreaming": false,
+			"db": {
+				"url": "mongodb://mongo:27017/",
+				"db": "test"
+			}
+		}
