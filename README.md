@@ -4,11 +4,16 @@ Inspired by [NUStreaming/CMCD-DASH](https://github.com/NUStreaming/CMCD-DASH).
 
 ## Quick start
 
-You will need zsh, [docker](https://docs.docker.com/get-docker/), and [docker-compose](https://docs.docker.com/compose/install/) for this to work.
+You will need zsh, [docker](https://docs.docker.com/get-docker/), and [docker-compose](https://docs.docker.com/compose/install/) for this to work. Furthermore, repository contain certain amout of large video files necessary for streaming, for which you will be needing [Git Large File Storage](https://git-lfs.com/) library.
 
 ### 1️⃣ Clone this repo
+Once you have `git-lfs` installed clone this repository:
 ```
 git clone git@github.com:stepski011/Streaming-Analytics-CMCD-CMSD.git
+```
+In case that video files within `cmcd-server/nginx/media` are missing or they are formated in such a way that is not playable as video media, try running following command in repository directory:
+```
+git lfs fetch --all
 ```
 
 ### 2️⃣ Source toolbox
