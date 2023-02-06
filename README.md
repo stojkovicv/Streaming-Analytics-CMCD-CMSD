@@ -26,7 +26,7 @@ cmcd-up
 
 This will spin up the docker-compose configuration in a project called `cmcd`. You can test by running `docker ps`.
 
-You can send GET request `http://localhost:8080/cmcd-njs/testProcessQuery?CMCD=bl%3D21300` to check that the cmcd server is up and running. See `cmcd-server/tests.http` for more excamples.
+You can send GET request `http://localhost:8080/cmcd-njs/testProcessQuery?CMCD=bl%3D21300` to check that the cmcd server is up and running. See `cmcd-server/tests.http` for more examples.
 
 ### 🎉 Stream
 Open the `stream-client/index.html` file in you browser, the streaming should start automatically.
