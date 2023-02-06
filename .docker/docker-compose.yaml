@@ -1,5 +1,11 @@
 version: "3.9"
+
+volumes:
+    elasticsearch-data-volume:
+        driver: local
+
 services:
+
     cmcd-server:
         container_name: cmcd-server
         image: nginx:latest
@@ -15,5 +21,28 @@ services:
         image: grafana/grafana
         ports:
             - 3000:3000
+
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+        container_name: elasticsearch
+        environment:
+            - xpack.security.enabled=false
+            - discovery.type=single-node
+        ports:
+            - 9200:9200
+            - 9300:9300
+        volumes:
+            - elasticsearch-data-volume:/usr/share/elasticsearch/data
+
+    kibana:
+        container_name: kibana
+        image: docker.elastic.co/kibana/kibana:7.4.0
+        restart: always
+        environment:
+            - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+        ports:
+            - 5601:5601
+        depends_on:
+            - elasticsearch
 
 
