@@ -55,9 +55,9 @@ Convert log file to JSON format and insert it to Mongodb cluster.
 
 Install dependency:
 ```
-pip install pymongo
+pip3 install pymongo
 ```
-In case of dependency errors, invoke `pip` directly from script.
+In case of dependency errors, invoke `pip install` directly from script.
 
 ### CMCD Server Setup and Testing
 
