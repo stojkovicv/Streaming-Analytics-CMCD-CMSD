@@ -4,11 +4,16 @@ Inspired by [NUStreaming/CMCD-DASH](https://github.com/NUStreaming/CMCD-DASH).
 
 ## Quick start
 
-You will need zsh, [docker](https://docs.docker.com/get-docker/), and [docker-compose](https://docs.docker.com/compose/install/) for this to work.
+You will need zsh, [docker](https://docs.docker.com/get-docker/), and [docker-compose](https://docs.docker.com/compose/install/) for this to work. Furthermore, repository contain certain amout of large video files necessary for streaming, for which you will be needing [Git Large File Storage](https://git-lfs.com/) library.
 
 ### 1️⃣ Clone this repo
+Once you have `git-lfs` installed clone this repository:
 ```
 git clone git@github.com:stepski011/Streaming-Analytics-CMCD-CMSD.git
+```
+In case that video files within `cmcd-server/nginx/media` are missing or they are formated in such a way that is not playable as video media, try running following command in repository directory:
+```
+git lfs fetch --all
 ```
 
 ### 2️⃣ Source toolbox
@@ -26,7 +31,7 @@ cmcd-up
 
 This will spin up the docker-compose configuration in a project called `cmcd`. You can test by running `docker ps`.
 
-You can send GET request `http://localhost:8080/cmcd-njs/testProcessQuery?CMCD=bl%3D21300` to check that the cmcd server is up and running. See `cmcd-server/tests.http` for more examples.
+You can send GET request `http://localhost:8080/cmcd-njs/testProcessQuery?CMCD=bl%3D21300` to check that the cmcd server is up and running. See `cmcd-server/tests.http` for more excamples.
 
 ### 🎉 Stream
 Open the `stream-client/index.html` file in you browser, the streaming should start automatically.
@@ -45,6 +50,14 @@ TBD
 - Database
 - Grafana
 
+## Running parser for log collection
+Convert log file to JSON format and insert it to Mongodb cluster.
+
+Install dependency:
+```
+pip3 install pymongo
+```
+In case of dependency errors, invoke `pip install` directly from script.
 
 ### CMCD Server Setup and Testing
 
