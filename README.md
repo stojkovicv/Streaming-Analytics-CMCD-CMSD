@@ -50,6 +50,14 @@ TBD
 - Database
 - Grafana
 
+## Running parser for log collection
+Convert log file to JSON format and insert it to Mongodb cluster.
+
+Install dependency:
+```
+pip install pymongo
+```
+In case of dependency errors, invoke `pip` directly from script.
 
 ### CMCD Server Setup and Testing
 
