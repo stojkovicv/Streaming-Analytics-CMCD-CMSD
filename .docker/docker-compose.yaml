@@ -9,10 +9,33 @@ services:
             - ../cmcd-server/nginx/config/nginx.conf:/etc/nginx/nginx.conf:ro
             - ../cmcd-server/nginx/cmcd_njs.js:/etc/nginx/cmcd_njs.js:ro
             - ../cmcd-server/nginx/media/:/etc/nginx/media/:ro
-    mongo:
-        image: mongo:6.0
+
+    cmcd-bridge:
+        build: ../cmcd-bridge/
+        image: cmcd-bridge
+        container_name: cmcd-bridge
         ports:
-            - "27017:27017"
+            - "8088:8088"
+        volumes:
+            - ./../cmcd-bridge/:/usr/src/cmcd-bridge
+        depends_on:
+            - mysql
+            - cmcd-server
+
+    mysql:
+        image: mysql:8.0
+        restart: always
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_USER: user
+            MYSQL_ROOT_PASSWORD: password
+        command: [
+            "mysqld",
+            "--character-set-server=utf8mb4",
+            "--collation-server=utf8mb4_unicode_ci",
+            "--disabled-storage-engines=MEMORY,FEDERATED"
+        ]
 
     grafana:
         build: ../grafana/
@@ -25,14 +48,3 @@ services:
             GF_AUTH_ANONYMOUS_ENABLED: true
             GF_AUTH_ANONYMOUS_ORG_ROLE: Editor
         restart: always
-
-    # Fore easy access to mongo during development
-    mongo-express:
-        image: mongo-express
-        restart: always
-        ports:
-            - "8081:8081"
-        environment:
-            ME_CONFIG_MONGODB_URL: "mongodb://mongo:27017/"
-        depends_on:
-            - mongo

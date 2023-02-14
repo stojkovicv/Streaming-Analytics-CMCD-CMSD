@@ -1,6 +1,7 @@
+#TODO: This should now not be necessary since we no longer rely on Mongo
 FROM node:16-alpine AS node
 
-FROM grafana/grafana
+FROM grafana/grafana-oss
 
 USER root
 
