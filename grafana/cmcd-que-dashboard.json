@@ -1,0 +1,629 @@
+{
+	"annotations": {
+		"list": [
+			{
+				"builtIn": 1,
+				"datasource": {
+					"type": "mysql",
+					"uid": "e52PCHJVk"
+				},
+				"enable": true,
+				"hide": true,
+				"iconColor": "rgba(0, 211, 255, 1)",
+				"name": "Annotations & Alerts",
+				"target": {
+					"limit": 100,
+					"matchAny": false,
+					"tags": [],
+					"type": "dashboard"
+				},
+				"type": "dashboard"
+			}
+		]
+	},
+	"editable": true,
+	"fiscalYearStartMonth": 0,
+	"graphTooltip": 1,
+	"id": 1,
+	"links": [],
+	"liveNow": false,
+	"panels": [
+		{
+			"datasource": {
+				"type": "mysql",
+				"uid": "e52PCHJVk"
+			},
+			"description": "Estimated by counting the number of unique video session id (CMCD sid parameter) for the time period specified in Time picker. It is not the same as unique viewers count: since it is only 5 minutes long video constantly played, the same client can finish and start multiple different plays within the time period.",
+			"fieldConfig": {
+				"defaults": {
+					"color": {
+						"mode": "thresholds"
+					},
+					"mappings": [],
+					"thresholds": {
+						"mode": "percentage",
+						"steps": [
+							{
+								"color": "green",
+								"value": null
+							},
+							{
+								"color": "orange",
+								"value": 70
+							},
+							{
+								"color": "red",
+								"value": 85
+							}
+						]
+					}
+				},
+				"overrides": []
+			},
+			"gridPos": {
+				"h": 6,
+				"w": 8,
+				"x": 0,
+				"y": 0
+			},
+			"id": 3,
+			"options": {
+				"colorMode": "value",
+				"graphMode": "area",
+				"justifyMode": "auto",
+				"orientation": "auto",
+				"reduceOptions": {
+					"calcs": [
+						"lastNotNull"
+					],
+					"fields": "",
+					"values": false
+				},
+				"textMode": "auto"
+			},
+			"pluginVersion": "9.3.6",
+			"targets": [
+				{
+					"datasource": {
+						"type": "mysql",
+						"uid": "e52PCHJVk"
+					},
+					"editorMode": "code",
+					"format": "table",
+					"key": "Q-e9f64442-253b-4170-a560-e2febdb3bb29-0",
+					"rawQuery": true,
+					"rawSql": "SELECT COUNT(DISTINCT sid) FROM cmcd.cmcd_data WHERE $__timeFilter(time)",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 50
+					}
+				}
+			],
+			"title": "Concurrent Plays",
+			"type": "stat"
+		},
+		{
+			"datasource": {
+				"type": "mysql",
+				"uid": "e52PCHJVk"
+			},
+			"description": "Calculated as a percentage of requests signalling rebuffering (CMCD bs) to the total number of requests.",
+			"fieldConfig": {
+				"defaults": {
+					"mappings": [],
+					"max": 1,
+					"min": 0,
+					"thresholds": {
+						"mode": "percentage",
+						"steps": [
+							{
+								"color": "green",
+								"value": null
+							},
+							{
+								"color": "orange",
+								"value": 25
+							},
+							{
+								"color": "red",
+								"value": 50
+							}
+						]
+					},
+					"unit": "percentunit"
+				},
+				"overrides": []
+			},
+			"gridPos": {
+				"h": 6,
+				"w": 8,
+				"x": 8,
+				"y": 0
+			},
+			"id": 4,
+			"options": {
+				"orientation": "auto",
+				"reduceOptions": {
+					"calcs": [
+						"lastNotNull"
+					],
+					"fields": "",
+					"values": false
+				},
+				"showThresholdLabels": false,
+				"showThresholdMarkers": true
+			},
+			"pluginVersion": "9.3.6",
+			"targets": [
+				{
+					"datasource": {
+						"type": "mysql",
+						"uid": "e52PCHJVk"
+					},
+					"editorMode": "code",
+					"format": "table",
+					"key": "Q-ab1f744c-37c0-48ad-98c0-f630cc91d950-0",
+					"rawQuery": true,
+					"rawSql": "SELECT COALESCE(SUM(bs),0) / COUNT(*) FROM cmcd.cmcd_data WHERE $__timeFilter(time)",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 50
+					}
+				}
+			],
+			"title": "Rebuffering Percentage",
+			"type": "gauge"
+		},
+		{
+			"datasource": {
+				"type": "mysql",
+				"uid": "e52PCHJVk"
+			},
+			"description": "Calculated suing average value of CMCD `br`.",
+			"fieldConfig": {
+				"defaults": {
+					"mappings": [],
+					"thresholds": {
+						"mode": "percentage",
+						"steps": [
+							{
+								"color": "green",
+								"value": null
+							},
+							{
+								"color": "orange",
+								"value": 70
+							},
+							{
+								"color": "red",
+								"value": 85
+							}
+						]
+					},
+					"unit": "binbps"
+				},
+				"overrides": []
+			},
+			"gridPos": {
+				"h": 6,
+				"w": 8,
+				"x": 16,
+				"y": 0
+			},
+			"id": 6,
+			"options": {
+				"orientation": "auto",
+				"reduceOptions": {
+					"calcs": [
+						"lastNotNull"
+					],
+					"fields": "",
+					"values": false
+				},
+				"showThresholdLabels": false,
+				"showThresholdMarkers": true
+			},
+			"pluginVersion": "9.3.6",
+			"targets": [
+				{
+					"datasource": {
+						"type": "mysql",
+						"uid": "e52PCHJVk"
+					},
+					"editorMode": "code",
+					"format": "table",
+					"rawQuery": true,
+					"rawSql": "SELECT AVG(br) FROM cmcd.cmcd_data WHERE $__timeFilter(time)",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 50
+					}
+				}
+			],
+			"title": "Average Encoded Bitrate",
+			"type": "gauge"
+		},
+		{
+			"datasource": {
+				"type": "mysql",
+				"uid": "e52PCHJVk"
+			},
+			"description": "",
+			"fieldConfig": {
+				"defaults": {
+					"color": {
+						"mode": "palette-classic"
+					},
+					"custom": {
+						"axisCenteredZero": false,
+						"axisColorMode": "text",
+						"axisLabel": "",
+						"axisPlacement": "auto",
+						"barAlignment": 0,
+						"drawStyle": "line",
+						"fillOpacity": 0,
+						"gradientMode": "none",
+						"hideFrom": {
+							"legend": false,
+							"tooltip": false,
+							"viz": false
+						},
+						"lineInterpolation": "smooth",
+						"lineStyle": {
+							"fill": "solid"
+						},
+						"lineWidth": 1,
+						"pointSize": 5,
+						"scaleDistribution": {
+							"type": "linear"
+						},
+						"showPoints": "never",
+						"spanNulls": true,
+						"stacking": {
+							"group": "A",
+							"mode": "none"
+						},
+						"thresholdsStyle": {
+							"mode": "off"
+						}
+					},
+					"mappings": [],
+					"thresholds": {
+						"mode": "absolute",
+						"steps": [
+							{
+								"color": "green",
+								"value": null
+							},
+							{
+								"color": "red",
+								"value": 80
+							}
+						]
+					},
+					"unit": "Kbits"
+				},
+				"overrides": []
+			},
+			"gridPos": {
+				"h": 8,
+				"w": 12,
+				"x": 0,
+				"y": 6
+			},
+			"id": 1,
+			"options": {
+				"legend": {
+					"calcs": [
+						"max"
+					],
+					"displayMode": "list",
+					"placement": "bottom",
+					"showLegend": true
+				},
+				"tooltip": {
+					"mode": "multi",
+					"sort": "none"
+				}
+			},
+			"targets": [
+				{
+					"datasource": {
+						"type": "mysql",
+						"uid": "e52PCHJVk"
+					},
+					"editorMode": "code",
+					"format": "time_series",
+					"key": "Q-f649b183-90e1-423a-b87b-0e92b1bd1a03-0",
+					"rawQuery": true,
+					"rawSql": "SELECT \n  $__timeGroup(time,${interval}) as time_sec,\n  avg(rtp) as value, \n  sid as metric \nFROM cmcd_data \nWHERE $__timeFilter(time)\nGROUP BY 1, sid\nORDER BY 1",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 50
+					}
+				}
+			],
+			"title": "Request Maximum Throughput per Session",
+			"type": "timeseries"
+		},
+		{
+			"datasource": {
+				"type": "mysql",
+				"uid": "e52PCHJVk"
+			},
+			"description": "",
+			"fieldConfig": {
+				"defaults": {
+					"color": {
+						"mode": "palette-classic"
+					},
+					"custom": {
+						"axisCenteredZero": false,
+						"axisColorMode": "text",
+						"axisLabel": "",
+						"axisPlacement": "auto",
+						"barAlignment": 0,
+						"drawStyle": "line",
+						"fillOpacity": 0,
+						"gradientMode": "none",
+						"hideFrom": {
+							"legend": false,
+							"tooltip": false,
+							"viz": false
+						},
+						"lineInterpolation": "smooth",
+						"lineStyle": {
+							"fill": "solid"
+						},
+						"lineWidth": 1,
+						"pointSize": 5,
+						"scaleDistribution": {
+							"type": "linear"
+						},
+						"showPoints": "never",
+						"spanNulls": true,
+						"stacking": {
+							"group": "A",
+							"mode": "none"
+						},
+						"thresholdsStyle": {
+							"mode": "off"
+						}
+					},
+					"mappings": [],
+					"thresholds": {
+						"mode": "absolute",
+						"steps": [
+							{
+								"color": "green",
+								"value": null
+							},
+							{
+								"color": "red",
+								"value": 80
+							}
+						]
+					},
+					"unit": "dtdurationms"
+				},
+				"overrides": []
+			},
+			"gridPos": {
+				"h": 8,
+				"w": 12,
+				"x": 12,
+				"y": 6
+			},
+			"id": 2,
+			"options": {
+				"legend": {
+					"calcs": [
+						"max"
+					],
+					"displayMode": "list",
+					"placement": "bottom",
+					"showLegend": true
+				},
+				"tooltip": {
+					"mode": "multi",
+					"sort": "none"
+				}
+			},
+			"targets": [
+				{
+					"datasource": {
+						"type": "mysql",
+						"uid": "e52PCHJVk"
+					},
+					"editorMode": "code",
+					"format": "time_series",
+					"key": "Q-f649b183-90e1-423a-b87b-0e92b1bd1a03-0",
+					"rawQuery": true,
+					"rawSql": "SELECT \n  $__timeGroup(time,${interval}) as time_sec,\n  avg(bl) as value, \n  sid as metric \nFROM cmcd_data\nGROUP BY 1, sid\nORDER BY 1",
+					"refId": "A",
+					"sql": {
+						"columns": [
+							{
+								"parameters": [],
+								"type": "function"
+							}
+						],
+						"groupBy": [
+							{
+								"property": {
+									"type": "string"
+								},
+								"type": "groupBy"
+							}
+						],
+						"limit": 50
+					}
+				}
+			],
+			"title": "Buffer Length per Session",
+			"type": "timeseries"
+		}
+	],
+	"refresh": "5s",
+	"schemaVersion": 37,
+	"style": "dark",
+	"tags": [],
+	"templating": {
+		"list": [
+			{
+				"current": {
+					"selected": true,
+					"text": [
+						"2db5ec40-8b0d-4e12-a178-6de208c9500b",
+						"3a799169-87c9-40bd-bc8f-cf7aacdb2a79",
+						"84c8b31c-a8c9-4ce3-ad48-5d233266ce3c"
+					],
+					"value": [
+						"2db5ec40-8b0d-4e12-a178-6de208c9500b",
+						"3a799169-87c9-40bd-bc8f-cf7aacdb2a79",
+						"84c8b31c-a8c9-4ce3-ad48-5d233266ce3c"
+					]
+				},
+				"datasource": {
+					"type": "mysql",
+					"uid": "e52PCHJVk"
+				},
+				"definition": "SELECT DISTINCT sid FROM cmcd.cmcd_data;",
+				"hide": 0,
+				"includeAll": false,
+				"label": "session",
+				"multi": true,
+				"name": "session",
+				"options": [],
+				"query": "SELECT DISTINCT sid FROM cmcd.cmcd_data;",
+				"refresh": 1,
+				"regex": "",
+				"skipUrlSync": false,
+				"sort": 1,
+				"type": "query"
+			},
+			{
+				"current": {
+					"selected": true,
+					"text": "10s",
+					"value": "10s"
+				},
+				"hide": 0,
+				"includeAll": false,
+				"label": "interval",
+				"multi": false,
+				"name": "interval",
+				"options": [
+					{
+						"selected": false,
+						"text": "1s",
+						"value": "1s"
+					},
+					{
+						"selected": false,
+						"text": "5s",
+						"value": "5s"
+					},
+					{
+						"selected": true,
+						"text": "10s",
+						"value": "10s"
+					},
+					{
+						"selected": false,
+						"text": "1m",
+						"value": "1m"
+					},
+					{
+						"selected": false,
+						"text": "5m",
+						"value": "5m"
+					}
+				],
+				"query": "1s, 5s, 10s, 1m, 5m",
+				"queryValue": "",
+				"skipUrlSync": false,
+				"type": "custom"
+			}
+		]
+	},
+	"time": {
+		"from": "now-5m",
+		"to": "now"
+	},
+	"timepicker": {
+		"refresh_intervals": [
+			"5s",
+			"10s",
+			"30s",
+			"1m",
+			"5m",
+			"15m",
+			"30m",
+			"1h",
+			"2h",
+			"1d"
+		]
+	},
+	"timezone": "",
+	"title": "CMCD",
+	"uid": "rivvtDJVz",
+	"version": 14,
+	"weekStart": ""
+}

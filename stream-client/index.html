@@ -9,6 +9,8 @@
     <script class="code">
         var player;
         var ruleUsed = '';
+        let sid = self.crypto.randomUUID();
+
 
         function getQueryParams() {
             var vars = {};
@@ -18,17 +20,16 @@
                 });
             return vars;
         }
-    
+
         function init() {
             var video,
-                //url = "http://localhost:8080/cmcd-njs/bufferBasedRateControl/media/vod/bbb_30fps_akamai/bbb_30fps.mpd",    // w/ bufferBasedRateControl
-                 url = "http://localhost:8080/media/vod/bbb_30fps_akamai/bbb_30fps.mpd",    // w/o bufferBasedRateControl
-                // url = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd",    // dash.js default
+                url = "http://localhost:8080/cmcd/media/vod/bbb_30fps_akamai/bbb_30fps.mpd",    // with CMCD bridge
+                // url = "http://localhost:8080/media/vod/bbb_30fps_akamai/bbb_30fps.mpd",    // w/o CMCD bridge
                 version,
                 httpParams=getQueryParams(),
                 minBuffer=4,
                 maxBuffer=8;
-            
+
             // if the vales came with query string override default ones
             if ("videoUrl" in httpParams){
                 url = httpParams["videoUrl"];
@@ -53,7 +54,7 @@
                 streaming: {
                     cmcd: {
                         enabled: true, /* enable reporting of cmcd parameters */
-                        sid: 'b248658d-1d1a-4039-91d0-8c08ba597da5', /* session id send with each request */
+                        sid: sid, /* session id send with each request */
                         cid: '21cf726cfe3d937b5f974f72bb5bd06a', /* content id send with each request */
                         did: 'dash.js-v' + version/* device id send with each request */
                     }
@@ -141,6 +142,7 @@
                     <li>Quality: <b><span id="quality-tag"></span></b></li>
                     <li>Measured throughput: <b><span id="tput-tag"></span></b></li>
                     <li>Rule used: <b><span id="rule-used-tag"></span></b></li>
+                    <li>Session ID: <b><span id="session-id"></span></b></li>
                 </ul>
                 <div id="stats"></div>
             </fieldset>
@@ -191,6 +193,8 @@
                 document.getElementById("buffer-tag").innerHTML = currentBuffer + " secs";
 
                 document.querySelector('#rule-used-tag').innerText = ruleUsed;
+
+                document.querySelector('#session-id').innerText = sid;
             }, 200);
 
             player.on(dashjs.MediaPlayer.events.QUALITY_CHANGE_REQUESTED, (e) => {
