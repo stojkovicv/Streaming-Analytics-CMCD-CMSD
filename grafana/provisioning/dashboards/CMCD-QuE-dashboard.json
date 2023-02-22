@@ -5,7 +5,7 @@
 				"builtIn": 1,
 				"datasource": {
 					"type": "mysql",
-					"uid": "e52PCHJVk"
+					"uid": "P27E39F20A2D8F352"
 				},
 				"enable": true,
 				"hide": true,
@@ -31,7 +31,7 @@
 		{
 			"datasource": {
 				"type": "mysql",
-				"uid": "e52PCHJVk"
+				"uid": "P27E39F20A2D8F352"
 			},
 			"description": "Estimated by counting the number of unique video session id (CMCD sid parameter) for the time period specified in Time picker. It is not the same as unique viewers count: since it is only 5 minutes long video constantly played, the same client can finish and start multiple different plays within the time period.",
 			"fieldConfig": {
@@ -86,7 +86,7 @@
 				{
 					"datasource": {
 						"type": "mysql",
-						"uid": "e52PCHJVk"
+						"uid": "P27E39F20A2D8F352"
 					},
 					"editorMode": "code",
 					"format": "table",
@@ -119,7 +119,7 @@
 		{
 			"datasource": {
 				"type": "mysql",
-				"uid": "e52PCHJVk"
+				"uid": "P27E39F20A2D8F352"
 			},
 			"description": "Calculated as a percentage of requests signalling rebuffering (CMCD bs) to the total number of requests.",
 			"fieldConfig": {
@@ -172,7 +172,7 @@
 				{
 					"datasource": {
 						"type": "mysql",
-						"uid": "e52PCHJVk"
+						"uid": "P27E39F20A2D8F352"
 					},
 					"editorMode": "code",
 					"format": "table",
@@ -205,7 +205,7 @@
 		{
 			"datasource": {
 				"type": "mysql",
-				"uid": "e52PCHJVk"
+				"uid": "P27E39F20A2D8F352"
 			},
 			"description": "Calculated suing average value of CMCD `br`.",
 			"fieldConfig": {
@@ -256,7 +256,7 @@
 				{
 					"datasource": {
 						"type": "mysql",
-						"uid": "e52PCHJVk"
+						"uid": "P27E39F20A2D8F352"
 					},
 					"editorMode": "code",
 					"format": "table",
@@ -288,7 +288,7 @@
 		{
 			"datasource": {
 				"type": "mysql",
-				"uid": "e52PCHJVk"
+				"uid": "P27E39F20A2D8F352"
 			},
 			"description": "",
 			"fieldConfig": {
@@ -372,7 +372,7 @@
 				{
 					"datasource": {
 						"type": "mysql",
-						"uid": "e52PCHJVk"
+						"uid": "P27E39F20A2D8F352"
 					},
 					"editorMode": "code",
 					"format": "time_series",
@@ -405,7 +405,7 @@
 		{
 			"datasource": {
 				"type": "mysql",
-				"uid": "e52PCHJVk"
+				"uid": "P27E39F20A2D8F352"
 			},
 			"description": "",
 			"fieldConfig": {
@@ -489,7 +489,7 @@
 				{
 					"datasource": {
 						"type": "mysql",
-						"uid": "e52PCHJVk"
+						"uid": "P27E39F20A2D8F352"
 					},
 					"editorMode": "code",
 					"format": "time_series",
@@ -542,7 +542,7 @@
 				},
 				"datasource": {
 					"type": "mysql",
-					"uid": "e52PCHJVk"
+					"uid": "P27E39F20A2D8F352"
 				},
 				"definition": "SELECT DISTINCT sid FROM cmcd.cmcd_data;",
 				"hide": 0,
