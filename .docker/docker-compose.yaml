@@ -38,11 +38,11 @@ services:
         ]
 
     grafana:
-        build: ../grafana/
-        image: grafana-with-mongo
+        image: grafana/grafana-oss:9.3.6
         ports:
             - "3000:3000"
-            - "3333:3333" # to debug mongodb-grafana plugin
+        volumes:
+            - ./../grafana/provisioning/:/etc/grafana/provisioning/
         environment:
             GF_USERS_ALLOW_SIGN_UP: false
             GF_AUTH_ANONYMOUS_ENABLED: true
