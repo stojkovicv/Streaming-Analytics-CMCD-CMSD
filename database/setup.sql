@@ -1,5 +1,3 @@
-# TODO: Make this part of the docker-compose startup
-
 CREATE DATABASE IF NOT EXISTS cmcd;
 USE cmcd;
 
