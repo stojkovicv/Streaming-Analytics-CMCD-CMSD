@@ -1,6 +1,9 @@
 # Streaming Analytics for CMCD
 
-Inspired by [NUStreaming/CMCD-DASH](https://github.com/NUStreaming/CMCD-DASH).
+This work is inspired by [NUStreaming/CMCD-DASH](https://github.com/NUStreaming/CMCD-DASH).
+
+In the repository we provide an end-to-end proof of concept of a video streaming infrastructure which monitors the Quality of Experience (QoE) of the clients watching the stream. The QoE is presented in Grafana dashboard.
+
 
 ## Quick start
 
@@ -12,15 +15,24 @@ git clone git@github.com:stepski011/Streaming-Analytics-CMCD-CMSD.git
 ```
 
 ### 2️⃣ Source toolbox
-In the project root folder run `source ./toolbox.zsh`.
+In the project root folder run
+```bash
+source ./toolbox.zsh
+```
 
 Alternatively, you can add toolbox.zsh into your PATH so that you can call the scripts to anywhere and don't have to source toolbox in every new terminal session.
 
 This file contains helpful scripts to start/stop the containers and other control tasks.
 
+### 🐇 Download media files (Big Buck Bunny)
+In the root of the project run
+```bash
+cmcd-pull-media
+```
+
 ### 🚀 Launch containers
 In the root of the project run
-```
+```bash
 cmcd-up
 ```
 
@@ -31,38 +43,15 @@ You can send GET request `http://localhost:8080/cmcd-njs/testProcessQuery?CMCD=b
 ### 🎉 Stream
 Open the `stream-client/index.html` file in you browser, the streaming should start automatically.
 
-Even though you are streaming the file from your localhost, you will need internet, so that the [dash.js](https://github.com/Dash-Industry-Forum/dash.js) source code can be downloaded.
+Even though you are streaming the file from your localhost, you will need to be connected to the internet, so that the [dash.js](https://github.com/Dash-Industry-Forum/dash.js) source code can be downloaded.
+
+### 📊 View dashboard
+To open the [CMCD Grafana Dashboard](http://0.0.0.0:3000/d/rivvtDJVz/cmcd). Grafana runs on port 3000, you can access it on http://0.0.0.0:3000.
 
 ## Components
+![Architecture Diagram](./docs/assets/architecture.png)
 
----
-TBD
-
----
-
-- CMCD Server
-- Stream Client
-- Database
-- Grafana
-
-
-### CMCD Server Setup and Testing
-
-Run the NGINX server:
-- Navigate to the `cmcd-server/` folder
-- Install the NJS module in NGINX using `sudo apt install nginx-module-njs`
-- Open `nginx/config/nginx.conf` and edit `<PATH_TO_CMCD-DASH>` (under "`location /media/vod`") to indicate the absolute path to this repository
-- Launch NGINX using `sudo nginx -c <PATH_TO_CMCD-DASH>/cmcd-server/nginx/config/nginx.conf` (note that the absolute path must be used)
-- Reload NGINX using `sudo nginx -c <PATH_TO_CMCD-DASH>/cmcd-server/nginx/config/nginx.conf -s reload`, if the configuration has changed
-- Test the NJS application `cmcd_njs.js` with CMCD using `http://⟨MachineIP_ADDRESS⟩:8080/cmcd-njs/testProcessQuery?CMCD=bl%3D21300` and verify that it returns a value of 21300 for buffer length (bl)
-
-Run the dash.js client:
-- Navigate to the `dash.js/` folder
-- Install the dependencies using `npm install`
-- Build, watch file changes and launch samples page using `grunt dev`
-- Test the dash.js application by navigating to `http://⟨MachineIP_ADDRESS⟩:3000/samples/cmcd-dash/index.html` to view the CMCD-enabled player
-
-### NGINX Server
+### CMCD-server
 
 - NGINX JS (NJS) webserver and middleware (NGINX v1.18)
 - See `nginx/cmcd_njs.js` for more details on the NJS application logic and implementation
@@ -81,3 +70,29 @@ Other useful commands:
     - Create the log file: `sudo touch /var/log/nginx/cmcd.log`
     - Update write permission for the log file: `sudo chmod 666 /var/log/nginx/cmcd.log`
     - To inspect logs: `tail -f cmcd.log`
+
+### CMCD-bridge
+TODO
+
+### Database
+TODO
+
+### Grafana Dashboard
+![CMCD Dashboard in Grafana](./docs/assets/grafana-dashboard.png)
+
+TODO:
+- More details on grafana setup
+- link to AWS project
+- explanation of panels (copy from Grafana setup)
+
+
+## More on CMCD
+TODO: Link to our report
+
+## Contributing
+TODO
+
+### Contributors
+- **Antonín Vlček** [🐦 @TonyVlcek](https://twitter.com/TonyVlcek), [🐙 TonyVlcek](https://github.com/TonyVlcek)
+- **Alicx Kamoun**
+- **Vuk Stojkovic** [🐙 stepski011](https://github.com/stepski011)
