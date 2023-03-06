@@ -6,3 +6,5 @@ node_modules
 
 ### Media files
 cmcd-server/nginx/media*
+
+load-test/__pycache__
