@@ -55,3 +55,9 @@ services:
             GF_AUTH_ANONYMOUS_ORG_ROLE: Editor
         depends_on:
             - mysql
+
+    locust:
+        build: ../load-test
+        image: load-test
+        ports:
+            - "8089:8089"
