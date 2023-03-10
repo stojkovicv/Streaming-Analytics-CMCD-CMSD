@@ -7,4 +7,4 @@ RUN pip install locust
 COPY . .
 
 EXPOSE 8089
-CMD ["locust", "-f", "locust.py", "--host=http://localhost:8080"]
+CMD ["locust", "-f", "locust.py", "--host=http://cmcd-server:8080"]
