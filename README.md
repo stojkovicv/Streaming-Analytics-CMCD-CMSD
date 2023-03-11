@@ -7,11 +7,11 @@ In the repository we provide an end-to-end proof of concept of a video streaming
 
 ## Quick start
 
-You will need zsh, [docker](https://docs.docker.com/get-docker/), and [docker-compose](https://docs.docker.com/compose/install/) for this to work.
+You will need `zsh`, [docker](https://docs.docker.com/get-docker/), and [docker-compose](https://docs.docker.com/compose/install/) for this to work.
 
 ### 1️⃣ Clone this repo
 ```
-git clone git@github.com:stepski011/Streaming-Analytics-CMCD-CMSD.git
+git clone https://github.com/stepski011/Streaming-Analytics-CMCD-CMSD.git
 ```
 
 ### 2️⃣ Source toolbox
@@ -20,7 +20,7 @@ In the project root folder run
 source ./toolbox.zsh
 ```
 
-Alternatively, you can add toolbox.zsh into your PATH so that you can call the scripts to anywhere and don't have to source toolbox in every new terminal session.
+Alternatively, you can add `toolbox.zsh` into your `PATH` so that you can call the scripts to anywhere and don't have to source toolbox in every new terminal session.
 
 This file contains helpful scripts to start/stop the containers and other control tasks.
 
@@ -47,6 +47,10 @@ Even though you are streaming the file from your localhost, you will need to be 
 
 ### 📊 View dashboard
 To open the [CMCD Grafana Dashboard](http://0.0.0.0:3000/d/rivvtDJVz/cmcd). Grafana runs on port 3000, you can access it on http://0.0.0.0:3000.
+
+## Load testing
+For this purpose [locust.io](https://locust.io/) is used as a testing framework, simulating several thousands of GET requests to cmcd-server's endpoints.
+Testing mechanism is spinned up along with other services, and it's accessbile at http://0.0.0.0:8089. Locust brings up friendy user interface, so that number of users, spawn time and host target can be all tuned directly, or changed at some point. Generated results are available under "Download Data" section in several formats. In order to montitor resource consumption of other services during test run: `docker stats`.
 
 ## Components
 ![Architecture Diagram](./docs/assets/architecture.png)
@@ -91,6 +95,7 @@ TODO: Link to our report
 
 ## Contributing
 TODO
+
 
 ### Contributors
 - **Antonín Vlček** [🐦 @TonyVlcek](https://twitter.com/TonyVlcek), [🐙 TonyVlcek](https://github.com/TonyVlcek)
