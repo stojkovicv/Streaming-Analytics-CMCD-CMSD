@@ -61,3 +61,5 @@ services:
         image: load-test
         ports:
             - "8089:8089"
+        volumes:
+            - ../load-test/locust.py:/usr/src/load-test/locust.py:ro
