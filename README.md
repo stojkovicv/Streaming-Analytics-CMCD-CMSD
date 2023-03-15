@@ -1,6 +1,6 @@
 # Streaming Analytics for CMCD
 
-This work is inspired by [NUStreaming/CMCD-DASH](https://github.com/NUStreaming/CMCD-DASH).
+This work expands on the [NUStreaming/CMCD-DASH](https://github.com/NUStreaming/CMCD-DASH) project.
 
 In the repository we provide an end-to-end proof of concept of a video streaming infrastructure which monitors the Quality of Experience (QoE) of the clients watching the stream. The QoE is presented in Grafana dashboard.
 
@@ -57,47 +57,21 @@ Testing mechanism is spinned up along with other services, and it's accessbile a
 
 ### CMCD-server
 
-- NGINX JS (NJS) webserver and middleware (NGINX v1.18)
-- See `nginx/cmcd_njs.js` for more details on the NJS application logic and implementation
-    - Note that request URLs that are prefixed with `/cmcd-njs/bufferBasedRateControl` refer to CMCD requests and will trigger the NJS rate control mechanism
-    - Example request with CMCD: `http://localhost:8080/cmcd-njs/bufferBasedRateControl/media/vod/bbb_30fps_akamai/bbb_30fps.mpd` 
-    - Example request with NO CMCD: `http://localhost:8080/media/vod/bbb_30fps_akamai/bbb_30fps.mpd`
+This component serves as the edge server of our CDN. Using a [njs extension](https://nginx.org/en/docs/njs/) and a `proxy_pass`, it parses the CMCD metrics and submits them as JSON object to the CMCD-brdige.
 
-Other useful commands:
-- Check if NGINX is running:
-  - `curl http://127.0.0.1:8080`
-  - Or `ps -ef | grep nginx`
-  - Or `systemctl status nginx` for webserver status
-- Log files location: `/var/log/nginx/`
-  - To inspect logs: `tail -f error.log` and `tail -f access.log`
-  - To capture the custom logs in `cmcd_njs.js`:
-    - Create the log file: `sudo touch /var/log/nginx/cmcd.log`
-    - Update write permission for the log file: `sudo chmod 666 /var/log/nginx/cmcd.log`
-    - To inspect logs: `tail -f cmcd.log`
+See `nginx/cmcd_njs.js` for the details on how the parameters are parsed and `nginx/config/nginx.cong` for details on the `proxy_pass` configuration.
 
 ### CMCD-bridge
-TODO
+Is a container running a simple Node.js server (using the express framework). Its job is to accept a JSON object with the CMCD metrics and persist it into the MySQ database.
 
 ### Database
-TODO
+Due to compatibility issues and time pressure we forced to use MySQL as the database technology. MySQL being a relation database management system creates unnecessary overhead for our purposes, however thanks to its compatibility with Grafana it serves well for our Proof of Concept.
 
 ### Grafana Dashboard
 ![CMCD Dashboard in Grafana](./docs/assets/grafana-dashboard.png)
 
-TODO:
-- More details on grafana setup
-- link to AWS project
-- explanation of panels (copy from Grafana setup)
+Connects to MySQL to poll metrics and display them on a dashboard. The configuration of the dashboard is inspired by the [AWS' implementation](https://github.com/aws-samples/cloudfront-cmcd-realtime-dashboard) of a similar system using CloudFront and provides basic monitoring. There are certainly more visualistaions and pannels that could be added.
 
-
-## More on CMCD
-TODO: Link to our report
-
-## Contributing
-TODO
-
-
-### Contributors
+## Contributors
 - **Antonín Vlček** [🐦 @TonyVlcek](https://twitter.com/TonyVlcek), [🐙 TonyVlcek](https://github.com/TonyVlcek)
-- **Alicx Kamoun**
 - **Vuk Stojkovic** [🐙 stepski011](https://github.com/stepski011)
