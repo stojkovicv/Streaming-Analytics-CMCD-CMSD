@@ -11,7 +11,7 @@ You will need `zsh`, [docker](https://docs.docker.com/get-docker/), and [docker-
 
 ### 1️⃣ Clone this repo
 ```
-git clone https://github.com/stepski011/Streaming-Analytics-CMCD-CMSD.git
+git clone https://github.com/stojkovicv/Streaming-Analytics-CMCD-CMSD
 ```
 
 ### 2️⃣ Source toolbox
